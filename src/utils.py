@@ -4,25 +4,26 @@ from config import operations_path
 
 
 def load_operations():
-    '''Загружает данные из файла .json'''
+    '''Загружает данные из файла .json
+    '''
     with open(operations_path, 'rt') as file:
      #   file = f.read()
         file = json.load(file)
         return file
 
 
-def date_format(date_str):
+def date_format(date):
     '''Принимает дату в строковом формате и возвращает дату
     '''
-    date_object = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%f')
+    date_object = datetime.strftime(date, '%Y-%m-%dT%H:%M:%S.%f')
     return date_object
 
 
-def date_show(date_str):
-    '''Описание'''
-    date_object = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%f')
-    date_showed = datetime.strptime(date_object, '%d-%m-%Y')
-    return date_showed
+def date_show(date):
+    '''Преобразует формат представления даты в необходимый'''
+    date_object = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S.%f')
+    date_str = datetime.strftime(date_object, '%d-%m-%Y')
+    return date_str
 
 
 # def is_executed():
@@ -63,6 +64,6 @@ def get_sort_transaction(json_path):
             list_transaction.append(el)
 
     list_transaction.sort(
-        key = lambda transaction: date_format(transaction['date']),
+        key = lambda transaction: date_show(transaction['date']),
         reverse=True)
     return list_transaction
