@@ -3,18 +3,18 @@ import src.utils
 
 
 def main():
-    def get_five_transactions(operation_path):
+    def get_five_transactions():
         '''Возвращает 5 последних транзакций с заданными условиями'''
         showed_transactions = []
         for el in range(5):
-            showed_transactions.append(src.utils.get_sort_transaction(operation_path)[el])
+            showed_transactions.append(src.utils.get_sorted_transactions()[el])
 
         return showed_transactions
 
-    def get_transaction(operation_path):
+    def output_transactions():
         '''Выводит результат в необходимом формате'''
         output_str = ''
-        for el in get_five_transactions(operation_path):
+        for el in get_five_transactions():
             output_str_1 = (f'{src.utils.show_date(el.get("date"))} '
                             f'{el.get("description")}\n')
 
@@ -44,7 +44,7 @@ def main():
 
         return output_str
 
-    print(get_transaction(operations_path))
+    print(output_transactions())
 
 
 if __name__ == '__main__':

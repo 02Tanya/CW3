@@ -15,6 +15,7 @@ def show_date(date):
     '''Преобразует формат представления даты в необходимый'''
     date_object = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S.%f')
     date_str = datetime.strftime(date_object, '%d-%m-%Y')
+
     return date_str
 
 
@@ -26,8 +27,8 @@ def get_card_number(moved_from):
         account_alpha = ' '.join(account_alpha)
         account_digit = account[-1]
         account = (account_alpha + ' ' + account_digit[0:4] + ' ' +
-                account_digit[4:6] + '**' + ' ' + '****' + ' ' +
-                account_digit[-4:])
+                   account_digit[4:6] + '** **** ' + account_digit[-4:])
+
         return account
 
 
@@ -37,14 +38,14 @@ def get_account_number(moved_to):
     account_alpha = account[:-1]
     account_digit = account[-1]
     account_alpha = ' '.join(account_alpha)
-    account = account_alpha + ' ' + '**' + account_digit[-4:]
+    account = account_alpha + ' **' + account_digit[-4:]
+
     return account
 
 
-def get_sort_transaction(operation_path):
+def get_sorted_transactions():
     '''Формирует и сортирует список под заданные условия'''
     all_data = load_operations()
-
     list_transaction = []
     for el in all_data:
         if bool(el) and el['state'] == 'EXECUTED':
