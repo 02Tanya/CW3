@@ -6,47 +6,34 @@ from config import operations_path
 def load_operations():
     '''Загружает данные из файла .json'''
     with open(operations_path, 'rt') as file:
-     #   file = f.read()
         file = json.load(file)
+
         return file
 
 
-def date_format(date):
-    '''Принимает дату в строковом формате и возвращает дату'''
-    date_object = datetime.strftime(date, '%Y-%m-%dT%H:%M:%S.%f')
-    return date_object
-
-
-def date_show(date):
+def show_date(date):
     '''Преобразует формат представления даты в необходимый'''
     date_object = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S.%f')
     date_str = datetime.strftime(date_object, '%d-%m-%Y')
     return date_str
 
 
-# def is_executed():
-#     '''Проверяет у операции наличие признака EXECUTED
-#     '''
-#     if data['state'] = 'EXECUTED'
-#         return
-
-
-def format_from_account(write_off):
-    '''Определяет формат вывода номера карты или счета'''
-    if write_off is not None:
-        account = write_off.split()
+def get_card_number(moved_from):
+    '''Определяет формат вывода номера карты'''
+    if moved_from is not None:
+        account = moved_from.split()
         account_alpha = account[:-1]
         account_alpha = ' '.join(account_alpha)
         account_digit = account[-1]
         account = (account_alpha + ' ' + account_digit[0:4] + ' ' +
-               account_digit[4:6] + '**' + ' ' + '****' + ' ' +
-               account_digit[-4:])
+                account_digit[4:6] + '**' + ' ' + '****' + ' ' +
+                account_digit[-4:])
         return account
 
 
-def format_to_account(write_to):
-
-    account = write_to.split()
+def get_account_number(moved_to):
+    '''Определяет формат вывода номера счета'''
+    account = moved_to.split()
     account_alpha = account[:-1]
     account_digit = account[-1]
     account_alpha = ' '.join(account_alpha)
@@ -54,15 +41,15 @@ def format_to_account(write_to):
     return account
 
 
-def get_sort_transaction(json_path):
-    all_information = load_operations()
+def get_sort_transaction(operation_path):
+    '''Формирует и сортирует список под заданные условия'''
+    all_data = load_operations()
 
     list_transaction = []
-    for el in all_information:
+    for el in all_data:
         if bool(el) and el['state'] == 'EXECUTED':
             list_transaction.append(el)
 
-    list_transaction.sort(
-        key = lambda transaction: date_show(transaction['date']),
-        reverse=True)
+    list_transaction.sort(key=lambda transaction: transaction['date'], reverse=True)
+
     return list_transaction
