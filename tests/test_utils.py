@@ -1,34 +1,39 @@
 import pytest
-from src.utils import *
-from datetime import datetime
-from config import operations_path
+import src.utils
 
 
-def test_load_json():
-    assert type(load_json(operations_path)) = list
-    assert type(load_json(operations_path)[0]) = dictionary
+def test_load_operations():
+    assert type(src.utils.load_operations()) == list
+    assert type(src.utils.load_operations()[0]) == dict
 
 
-def test_date_format():
-    new_date = datetime(2024, 2, 22, 10, 30, 20)
-    assert date_format("2024-02-22T10:30:20.294041") = new_date
-
-@pytest.mark.parametrize('date_str, date_object',
-                         )
-def test_date_show(date_str, date_object):
-    assert date_show(date_str) = date_object
+@pytest.fixture
+def data_transaction():
+    return "2019-08-26T10:50:58.294041"
 
 
-@pytest.mark.parametrize('inout_account, output_account',
-                         )
+def test_show_date(data_transaction):
+    assert src.utils.show_date(data_transaction) == "26-08-2019"
 
-def test_format_to_account(input_account, output_account):
-    assert format_to_account(input_account) = output_account
 
-def test_get_sort_transactions():
-    assert len(get_sort_transaction(operations_path)) = 85
-    test_list = get_sort_transaction(operations_path)
-    test_list_data = []
-    for el in range(5):
-        test_list_data.append(test_list[el]['date'])
-    assert  test_list_data =
+@pytest.fixture
+def card_number():
+    return "Maestro 1596837868705199"
+
+
+def test_get_card_number(card_number):
+    assert src.utils.get_card_number(card_number) == "Maestro 1596 83** **** 5199"
+#    assert src.utils.get_card_number(None) = null
+
+
+@pytest.fixture
+def account_number():
+    return "Счет 64686473678894779589"
+
+
+def test_get_account_number(account_number):
+    assert src.utils.get_account_number(account_number) == "Счет **9589"
+
+
+def test_sorted_transactions():
+    assert len(src.utils.get_sorted_transactions()) == 85

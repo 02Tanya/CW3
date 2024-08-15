@@ -1,8 +1,7 @@
-from config import operations_path
-from src.main import *
+import pytest
+import src.utils
+import src.main
 
-def test_five_transactions():
-    assert len(five_transactions(operations_path)) = 5
 
-def test_get_transactions():
-    assert get_transaction(operations_path) = ()
+def test_main():
+    assert print(src.main.main()) == None
