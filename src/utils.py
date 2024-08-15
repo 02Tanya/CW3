@@ -4,8 +4,7 @@ from config import operations_path
 
 
 def load_operations():
-    '''Загружает данные из файла .json
-    '''
+    '''Загружает данные из файла .json'''
     with open(operations_path, 'rt') as file:
      #   file = f.read()
         file = json.load(file)
@@ -13,8 +12,7 @@ def load_operations():
 
 
 def date_format(date):
-    '''Принимает дату в строковом формате и возвращает дату
-    '''
+    '''Принимает дату в строковом формате и возвращает дату'''
     date_object = datetime.strftime(date, '%Y-%m-%dT%H:%M:%S.%f')
     return date_object
 
@@ -34,6 +32,7 @@ def date_show(date):
 
 
 def format_from_account(write_off):
+    '''Определяет формат вывода номера карты или счета'''
     if write_off is not None:
         account = write_off.split()
         account_alpha = account[:-1]
