@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "cw3"
+version = "0.1.0"
+description = "Курсовой проект по курсу «Основы backend-разработки»"
+authors = ["TatyanaSh <tr3520@bk.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.31.0"
+pytest = "^8.1.1"
+pytest-cov = "^5.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
